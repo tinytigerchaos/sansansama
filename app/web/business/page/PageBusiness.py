@@ -13,7 +13,7 @@ class PageBussiness(object):
 	def loginAction(self,user,passwd):
 		try:
 			givenpasswd = SimpleUtil.GetMd5(user + passwd)
-			turepasswd = dboperate.pick_(user,CommonConstants.PASSWD)
+			turepasswd = dboperate.pick_(CommonConstants.PASSWD,user)
 			if givenpasswd == turepasswd:
 				return self.login(user)
 		except:
@@ -21,4 +21,4 @@ class PageBussiness(object):
 		#TODO 校验密码
 
 	def login(self,user):
-		return [True,""]
+		return [True,"login"]

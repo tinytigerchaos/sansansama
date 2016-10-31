@@ -18,3 +18,11 @@ IMAGE = "image"
 ARTICLE = "article"
 #临时文件
 TMPFILE = ".tf"
+
+#mongoDb服务器地址
+MONGODBIP = "121.42.160.203"
+#mongoDb服务器端口
+MONGDBPORT = 27017
+
+
+#

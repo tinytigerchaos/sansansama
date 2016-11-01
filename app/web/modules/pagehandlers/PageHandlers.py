@@ -29,7 +29,11 @@ class LoginHandler(PageBaseHandler):
 			self.redirect("/login")
 			return
 
-		pagebuiness.loginAction(user,passwd)
+		login = pagebuiness.loginAction(user,passwd)
+
+		if not login[0]:
+			self.redirect("/login")
+			return
 			# md5 passwd 从数据库内提出用户密码并比较
 			# '''
 			# 出错则重定向到自己
@@ -38,10 +42,11 @@ class LoginHandler(PageBaseHandler):
 
 		# 设置用户cookies
 		self.set_secure_cookie(CommonConstants.USER, user)
-		self.set_secure_cookie(CommonConstants.LOGINCODE, CommonConstants.LOGIN)
+		self.set_secure_cookie(CommonConstants.LOGINCODE, login[1])
 
 		#重定向到用户界面
 		self.redirect("/userCenter/" + user )
+		return
 
 class UserHandler(PageBaseHandler):
 	def get(self,user):

@@ -25,4 +25,5 @@ MONGODBIP = "121.42.160.203"
 MONGDBPORT = 27017
 
 
-#
+#时间
+TIME = "time"

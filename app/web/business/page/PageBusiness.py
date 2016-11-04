@@ -1,8 +1,11 @@
 #coding=utf-8
 #TODO import ...
 from app.common.constants import CommonConstants
-from app.common.util import SimpleUtil
 from app.web.dal.DbOperate import DbOperate
+from app.common.util import SimpleUtil
+import datetime
+
+
 dboperate = DbOperate()
 
 class PageBussiness(object):
@@ -12,21 +15,24 @@ class PageBussiness(object):
 
 	def loginAction(self,user,passwd):
 		try:
-			givenpasswd = SimpleUtil.GetMd5(user + passwd)
-			turepasswd = dboperate.pick_(CommonConstants.PASSWD,CommonConstants.USER,user)
-
+			givenpasswd = SimpleUtil.GetMd5(passwd)
+			turepasswd = dboperate.pick_(CommonConstants.USER,CommonConstants.USERNAME,user)
 
 			if turepasswd and turepasswd[CommonConstants.PASSWD] == givenpasswd :
-				self.login(user)
-				return [True, user]
+				return True
 
-			return [False, user]
+			return False
 		except EOFError,e:
 			print e.message
-			return [True,""]
-		#TODO 校验密码
+			return False
 
-	def login(self,user):
-		# TODO:
-		# return [False,"login"]
-		pass
+
+	def registerAction(self,user):
+		return dboperate.insert_(CommonConstants.USER,SimpleUtil.convert_to_dict(user))
+
+
+	def authAction(self,info={}):
+		payload = info
+		payload[CommonConstants.ISS] = CommonConstants.SIGNATURE
+		payload[CommonConstants.EXP] = datetime.datetime.now() + datetime.timedelta(hours=2)
+		return SimpleUtil.jwtEncode(payload)

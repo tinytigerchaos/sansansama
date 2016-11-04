@@ -8,16 +8,21 @@ from app.web.modules.apphandlers import AppHandler
 Handlers = [(r"/insertArt/(.*)", AppHandler.AddArticleHandler),
 			(r"/",PageHandlers.MainHandler),
 			(r"/login",PageHandlers.LoginHandler),
-			(r"/userCenter/(.*)",PageHandlers.UserHandler)
+			(r"/userCenter/(.*)",PageHandlers.UserHandler),
+			(r"/register",PageHandlers.RegisterHandler)
 			]
 
 
 
 
+settings = dict(
+	cookie_secret="lalalatinytiger###",
+	login_url = "/login"
+)
 
 
 application = Application(
-    Handlers,cookie_secret="lalalatinytiger###"
+    Handlers,**settings
 )
 
 if __name__ == '__main__':

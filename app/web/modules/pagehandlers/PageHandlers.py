@@ -1,18 +1,22 @@
 #coding=utf-8
+import tornado
 from app.common.constants import PathConstants
 from app.common.constants import CommonConstants
-from app.web.base.handlers.BaseHandlers import PageBaseHandler
+from app.web.base.handlers.BaseHandlers import BaseHandler
 from app.web.business.page.PageBusiness import PageBussiness
+from app.common.template import Profile
+from app.common.util import SimpleUtil
+import jwt
 
 pagebuiness = PageBussiness()
 
-class MainHandler(PageBaseHandler):
+class MainHandler(BaseHandler):
 	def get(self):
 		# self.write("hello !")
 		self.render(PathConstants.HTMLS_MODULESUSE + "main.html")
 
 
-class LoginHandler(PageBaseHandler):
+class LoginHandler(BaseHandler):
 	def get(self):
 		self.render(PathConstants.HTMLS_MODULESUSE + "login.html")
 
@@ -30,37 +34,45 @@ class LoginHandler(PageBaseHandler):
 			return
 
 		login = pagebuiness.loginAction(user,passwd)
-
-		if not login[0]:
+		if not login:
 			self.redirect("/login")
 			return
-			# md5 passwd 从数据库内提出用户密码并比较
-			# '''
-			# 出错则重定向到自己
-			# '''
-		# logincode = ""
 
 		# 设置用户cookies
-		self.set_secure_cookie(CommonConstants.USER, user)
-		self.set_secure_cookie(CommonConstants.LOGINCODE, login[1])
-
+		userinfo = {CommonConstants.USERNAME:user}
+		self.set_secure_cookie(CommonConstants.AUTH,pagebuiness.authAction(userinfo))
 		#重定向到用户界面
 		self.redirect("/userCenter/" + user )
 		return
 
-class UserHandler(PageBaseHandler):
-	def get(self,user):
-		if user != self.get_current_user():
-			self.redirect("/login")
-			return
-		if self.get_login_code() != CommonConstants.LOGIN:
-			self.redirect("/login")
-			return
+class UserHandler(BaseHandler):
+	@tornado.web.authenticated
+	def get(self):
+		user = tornado.escape.xhtml_escape(self.current_user)
 
 		self.write("welcome  " + user )
+		return
 
-		# self.render("user.html")
+class RegisterHandler(BaseHandler):
+	def get(self):
+		self.render(PathConstants.HTMLS_MODULESUSE + "register.html")
 
+	def post(self):
+		username = self.get_argument(CommonConstants.USERNAME)
+		passwd = self.get_argument(CommonConstants.PASSWD)
+		age = self.get_argument(CommonConstants.AGE)
+
+		#TODO 校验参数
+
+
+		user = Profile.UserPorfile()
+		user.setUser(username)
+		user.setPasswd(SimpleUtil.GetMd5(passwd))
+		user.setAge(age)
+
+
+		pagebuiness.registerAction(user)
+		return
 
 
 

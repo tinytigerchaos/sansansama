@@ -6,7 +6,6 @@ from app.web.base.handlers.BaseHandlers import BaseHandler
 from app.web.business.page.PageBusiness import PageBussiness
 from app.common.template import Profile
 from app.common.util import SimpleUtil
-import jwt
 
 pagebuiness = PageBussiness()
 
@@ -33,8 +32,8 @@ class LoginHandler(BaseHandler):
 			self.redirect("/login")
 			return
 
-		login = pagebuiness.loginAction(user,passwd)
-		if not login:
+
+		if not pagebuiness.loginAction(user,passwd):
 			self.redirect("/login")
 			return
 
@@ -42,7 +41,7 @@ class LoginHandler(BaseHandler):
 		userinfo = {CommonConstants.USERNAME:user}
 		self.set_secure_cookie(CommonConstants.AUTH,pagebuiness.authAction(userinfo))
 		#重定向到用户界面
-		self.redirect("/userCenter/" + user )
+		self.redirect("/userCenter")
 		return
 
 class UserHandler(BaseHandler):

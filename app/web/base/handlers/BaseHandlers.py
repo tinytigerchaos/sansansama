@@ -12,8 +12,12 @@ class BaseHandler(tornado.web.RequestHandler):
 		pass
 
 	def get_current_user(self):
-		authinfo = SimpleUtil.jwtDecode(self.get_secure_cookie(CommonConstants.AUTH))
-		if authinfo[CommonConstants.ISS] != CommonConstants.SIGNATURE or int(authinfo[CommonConstants.EXP]) < int(time.time()):
+		authinfo = None
+		try:
+			authinfo = SimpleUtil.jwtDecode(self.get_secure_cookie(CommonConstants.AUTH))
+		except:
+			pass
+		if not authinfo or authinfo[CommonConstants.ISS] != CommonConstants.SIGNATURE or int(authinfo[CommonConstants.EXP]) < int(time.time()):
 			return
 		return authinfo[CommonConstants.USERNAME]
 

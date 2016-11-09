@@ -5,10 +5,10 @@ from tornado.web import Application
 from app.web.modules.pagehandlers import PageHandlers
 from app.web.modules.apphandlers import AppHandler
 
-Handlers = [(r"/insertArt/(.*)", AppHandler.AddArticleHandler),
+Handlers = [(r"/insertArt", AppHandler.AddArticleHandler),
 			(r"/",PageHandlers.MainHandler),
 			(r"/login",PageHandlers.LoginHandler),
-			(r"/userCenter/(.*)",PageHandlers.UserHandler),
+			(r"/userCenter",PageHandlers.UserHandler),
 			(r"/register",PageHandlers.RegisterHandler)
 			]
 

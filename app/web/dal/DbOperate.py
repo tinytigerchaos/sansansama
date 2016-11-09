@@ -8,7 +8,7 @@ client = MongoClient(CommonConstants.MONGODBIP, CommonConstants.MONGDBPORT)
 class DbOperate(object):
 	def __init__(self):
 		self.db = client[CommonConstants.USER]
-
+		self.db.authenticate(CommonConstants.MONGODBACCOUNT,CommonConstants.MONGDBPASSWD)
 	def insert_(self,collection,data={}):
 		collection = self.db[collection]
 		post = data

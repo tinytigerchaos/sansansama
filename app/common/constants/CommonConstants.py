@@ -36,6 +36,10 @@ TMPFILE = ".tf"
 MONGODBIP = "121.42.160.203"
 #mongoDb服务器端口
 MONGDBPORT = 27017
+#mongodbAccount
+MONGODBACCOUNT = "sansan"
+#mongodbpasswd
+MONGDBPASSWD = "sansan"
 
 
 #时间

@@ -16,10 +16,6 @@ class UploadImageHandler(BaseHandler):
 class AddArticleHandler(BaseHandler):
 	@tornado.web.authenticated
 	def post(self):
-		# auth = self.get_current_user()
-		# if auth:
 		article = self.get_argument(CommonConstants.ARTICLE)
-		appbusiness.add_article(auth,article)
-			# return
-		# self.redirect("/login")
+		appbusiness.add_article(article)
 		return

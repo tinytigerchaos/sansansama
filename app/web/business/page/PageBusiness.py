@@ -1,6 +1,7 @@
 #coding=utf-8
 #TODO import ...
 from app.common.constants import CommonConstants
+from app.common.constants import DbConstants
 from app.web.dal.DbOperate import DbOperate
 from app.common.util import SimpleUtil
 import datetime
@@ -16,7 +17,7 @@ class PageBussiness(object):
 	def loginAction(self,user,passwd):
 		try:
 			givenpasswd = SimpleUtil.GetMd5(passwd)
-			turepasswd = dboperate.pick_(CommonConstants.USER,CommonConstants.USERNAME,user)
+			turepasswd = dboperate.pick_(DbConstants.USER,CommonConstants.USERNAME,user)
 
 			if turepasswd and turepasswd[CommonConstants.PASSWD] == givenpasswd :
 				return True
@@ -28,7 +29,7 @@ class PageBussiness(object):
 
 
 	def registerAction(self,user):
-		return dboperate.insert_(CommonConstants.USER,SimpleUtil.convert_to_dict(user))
+		return dboperate.insert_(DbConstants.USER,SimpleUtil.convert_to_dict(user))
 
 
 	def authAction(self,info={}):

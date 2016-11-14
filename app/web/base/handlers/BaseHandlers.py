@@ -20,8 +20,3 @@ class BaseHandler(tornado.web.RequestHandler):
 		if not authinfo or authinfo[CommonConstants.ISS] != CommonConstants.SIGNATURE or int(authinfo[CommonConstants.EXP]) < int(time.time()):
 			return
 		return authinfo[CommonConstants.USERNAME]
-
-# class AppBaseHandler(tornado.web.RequestHandler):
-# 	def initialize(self):
-# 		#TODO 初始化
-# 		pass

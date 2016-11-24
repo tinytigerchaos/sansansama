@@ -4,11 +4,12 @@
 
 class BaseTemplate(object):
 	#TODO
+
 	#时间
 	time = ""
-
+	#对象的所有者
 	owner = ""
-
+	#对象自身
 	objectId = ""
 
 	def getTime(self):

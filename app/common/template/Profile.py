@@ -3,11 +3,11 @@ class UserPorfile(object):
 	#用户名
 	username = ""
 	#用户id
-	userid = 0
+	userid = ""
 	#昵称
 	nickname = ""
 	#年龄
-	age = 0
+	age = -1
 	#性别
 	sex = ""
 	#密码

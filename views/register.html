@@ -1,16 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>register</title>
+  <meta charset="UTF-8">
+  <!-- 新 Bootstrap 核心 CSS 文件 -->
+  <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+
+  <!-- 可选的Bootstrap主题文件（一般不用引入） -->
+  <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap-theme.min.css">
+
+  <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+  <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+
+  <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+  <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <h2>LOGIN </h2>
-    <form action="/register" method="post">
-        Name: <input type="text" name="username">
-        Passwd: <input type="text" name="passwd">
-        Age: <input type="text" name="age">
-        <input type="submit" value="Register">
-    </form>
+  <div class="container">
+
+     <form class="form-signin" role="form">
+       <h2 class="form-signin-heading">Please register</h2>
+       <input type="email" class="form-control" placeholder="Email address" id="email" required autofocus>
+       <input type="password" class="form-control" placeholder="Password" id='passwd' required>
+       <button class="btn btn-lg btn-primary" type="button" onclick="register()">Register</button>
+     </form>
+
+     <div class="success-tip">
+
+     </div>
+     <div class="login-btn">
+       <button class="btn btn-primary" type="button" onclick="login()" >去登陆</button>
+
+     </div>
+
+   </div> <!-- /container -->
 </body>
 </html>
+<style media="screen">
+  .success-tip,.login-btn {
+    display: none;
+  }
+</style>
+<script>
+function login(){
+  location.href = "/login";
+}
+    function register(){
+      $.ajax({
+        type: 'POST',
+        url: '/register',
+        data: {
+          'username': $('#email').val(),
+          'passwd': $('#passwd').val()
+        },
+        dataType: 'json'
+      }).done(function(res){
+        if(res.status=='ok'){
+          $('.success-tip').show().text('恭喜你注册成功');
+          $('.login-btn').show()
+          $('.form-signin').hide()
+        } else {
+          $('.success-tip').show().text('注册失败 检查注册用户名')
+        }
+      }).fail(function(){
+          console.log('网络错误！');
+      });
+
+    }
+</script>

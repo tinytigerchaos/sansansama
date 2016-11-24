@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>User Center</title>
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="col-md-4 column">
+        <div id="commentbox">
+            <form class="bs-example bs-example-form " role="form">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">{{ username }}</span>
+                    <input type="text" class="small-input" placeholder="comment here" id="single-comment">
+                </div>
+                <div class="input-group input-group-lg">
+                  <button class="btn" type="button" onclick="addcomment()">comment</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-4 column">
+        <div class="comments-tip">
+        </div>
+    </div>
+    <div class="col-md-4 column">
+        <div class="oldcomments-tip">
+        </div>
+    </div>
+
+</body>
+
+</html>
+<style media="screen">
+    .comentbox {
+        padding: 100px 100px 10px;
+    }
+</style>
+<script type="text/javascript">
+    var oldcomments = null;
+
+    function addcomment() {
+        if (oldcomments != null) {
+            $('.oldcomments-tip').text(oldcomments);
+        }
+
+        var currentcomment = $('#single-comment').val();
+        oldcomments = currentcomment;
+        $('.comments-tip').text(currentcomment);
+
+        $.ajax({
+          type: 'POST',
+          url: '/addComment',
+          data: {
+            'owner': 'piece1',
+            'username':'laowang',
+            'comment': currentcomment
+          },
+          dataType: 'json'
+        }).done(function(res){
+          alert("success");
+        }).fail(function(){
+          alert("fail");
+        })
+
+
+
+    }
+</script>>

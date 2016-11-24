@@ -1,10 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>MAIN</title>
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+
+    <!-- 可选的Bootstrap主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap-theme.min.css">
+
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 </head>
+
 <body>
-    <h3>welcome !!!!</h3>
+    <div class="container">
+        <div class="row clearfix">
+        </div>
+        <div class="row clearfix">
+            <div class="col-md-4 column">
+                <div id="blueup">我是蓝色</div>
+                <div id="greenup">我是绿色</div>
+            </div>
+            <div class="col-md-4 column">
+                <button type="button" class="btn btn-default" onclick="redirect('/register')">去注册咯</button>
+                <button type="button" class="btn btn-default" onclick="redirect('/login')">登录一哈</button>
+            </div>
+            <div class="col-md-4 column">
+            </div>
+        </div>
+    </div>
 </body>
+
+<style media="screen">
+    .container {
+        padding: 0;
+        margin: 0;
+    }
+</style>
+<style type="text/css">
+    #blueup,
+    #greenup {
+        padding: 50px;
+        text-align: center;
+        background-color: #17c1dc;
+        border: solid 1px #c3c3c3;
+    }
+
+    #greenup {
+        background-color: #13d213;
+        padding: 50px;
+        display: none;
+    }
+
+    .btn {
+        display: none;
+    }
+</style>
+
 </html>
+<script>
+    $(document).ready(function() {
+        $("#blueup").click(function() {
+            $("#greenup").slideDown("slow");
+            $("#blueup").slideUp("slow");
+            $(".btn").slideDown("slow");
+        });
+    });
+    $(document).ready(function() {
+        $("#greenup").click(function() {
+            $("#greenup").slideUp("slow");
+            $("#blueup").slideDown("slow");
+            $(".btn").slideUp("slow");
+        });
+    });
+
+    function redirect(url) {
+        location.href = url;
+    }
+</script>

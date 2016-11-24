@@ -1,12 +1,11 @@
 #coding=utf-8
 
 
-# 数据库
-USER = "user"
 
 
 #
 #用户信息
+USER = "user"
 USERNAME = "username"
 AGE = "age"
 # 密码

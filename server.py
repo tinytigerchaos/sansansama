@@ -10,12 +10,12 @@ from app.web.modules.apphandlers import AppHandler
 from app.web.modules.boardhandler import BoardHandlers
 
 Handlers = [(r"/insertArt", AppHandler.AddArticleHandler),
-			(r"/",PageHandlers.MainHandler),
-			(r"/login",PageHandlers.LoginHandler),
-			(r"/userCenter",PageHandlers.UserHandler),
-			(r"/register",PageHandlers.RegisterHandler),
-			(r"/addComment",BoardHandlers.AddCommentHandler),
-			(r"/pickComment",BoardHandlers.PickCommentsHandlers)
+			(r"/", PageHandlers.MainHandler),
+			(r"/login", PageHandlers.LoginHandler),
+			(r"/userCenter", PageHandlers.UserHandler),
+			(r"/register", PageHandlers.RegisterHandler),
+			(r"/addComment", BoardHandlers.AddCommentHandler),
+			(r"/pickComment", BoardHandlers.PickCommentsHandlers)
 			]
 
 
@@ -23,17 +23,15 @@ Handlers = [(r"/insertArt", AppHandler.AddArticleHandler),
 
 settings = dict(
 	cookie_secret="lalalatinytiger###",
-	login_url = "/login",
-	template_path = os.path.join(os.path.dirname(__file__),"views")
+	login_url="/login",
+	template_path=os.path.join(os.path.dirname(__file__), "views")
 )
 
-
-
 application = Application(
-    Handlers,**settings
+	Handlers, **settings
 )
 
 if __name__ == '__main__':
-    server = HTTPServer(application)
-    server.listen(options.port)
-    IOLoop.current().start()
+	server = HTTPServer(application)
+	server.listen(options.port)
+	IOLoop.current().start()

@@ -11,11 +11,11 @@ class PieceTemplate(BaseTemplate):
 	def getPieceName(self):
 		return self.pieceName
 
-	def setPieceName(self,pieceName):
+	def setPieceName(self, pieceName):
 		self.pieceName = pieceName
 
 	def getPieceType(self):
 		return self.pieceType
 
-	def setPieceType(self,pieceType):
+	def setPieceType(self, pieceType):
 		self.pieceType = pieceType

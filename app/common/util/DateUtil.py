@@ -1,8 +1,11 @@
 import datetime
 
-def getDelayTimeByHour(hours):
+def get_delay_time_by_hour(hours):
 	return datetime.datetime.now() + datetime.timedelta(hours)
 
-def getTimeNow():
+def get_time_now():
 	return str(datetime.datetime.now())
+
+def get_time_now_data():
+	return datetime.datetime.now()
 

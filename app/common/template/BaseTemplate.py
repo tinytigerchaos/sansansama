@@ -10,22 +10,22 @@ class BaseTemplate(object):
 	#对象的所有者
 	owner = ""
 	#对象自身
-	objectId = ""
+	object_id = ""
 
-	def getTime(self):
+	def get_time(self):
 		return self.time
 
-	def setTime(self,time):
+	def set_time(self, time):
 		self.time = time
 
-	def getOwner(self):
+	def get_owner(self):
 		return self.owner
 
-	def setOwner(self,owner):
-		return self.owner
+	def set_owner(self, owner):
+		self.owner = owner
 
-	def getObjectId(self):
-		return self.objectId
+	def get_object_id(self):
+		return self.object_id
 
-	def setObjectId(self,objectId):
-		self.objectId = objectId
+	def set_object_id(self, object_id):
+		self.object_id = object_id

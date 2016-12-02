@@ -11,7 +11,10 @@ OWNERTYPE_PAD_PUVLIC = ""
 
 #评论
 COMMENT = "comment"
-
+#评论者
+USER = "comment_user"
 #所有者
 OWNER = "owner"
+#评论时间
+COMMENTTIME = "comment_time"
 

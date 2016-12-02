@@ -11,7 +11,8 @@ class UploadImageHandler(BaseHandler):
 		# TODO 完善上传图片接口
 		file_metas = self.request.files[CommonConstants.IMAGE]
 		image = file_metas[0].get('body')
-		appbusiness.upload_image(user,image)
+		appbusiness.upload_image(user, image)
+
 
 class AddArticleHandler(BaseHandler):
 	@tornado.web.authenticated

@@ -1,5 +1,7 @@
 #coding=utf-8
 import tornado
+import json
+from tornado import gen
 from app.common.constants import PathConstants
 from app.common.constants import CommonConstants
 from app.web.base.handlers.BaseHandlers import BaseHandler
@@ -11,19 +13,19 @@ pagebuiness = PageBussiness()
 
 class MainHandler(BaseHandler):
 	def get(self):
-		# self.write("hello !")
-		self.render(PathConstants.HTMLS_MODULESUSE + "main.html")
+		self.render("main.html")
 
 
 class LoginHandler(BaseHandler):
 	def get(self):
-		self.render(PathConstants.HTMLS_MODULESUSE + "login.html")
+		self.render("login.html")
+
 
 	def post(self):
 		user = ''
 		passwd = ''
 		try:
-			user = self.get_argument(CommonConstants.USER)
+			user = self.get_argument(CommonConstants.USERNAME)
 			passwd = self.get_argument(CommonConstants.PASSWD)
 		except:
 			self.redirect("/login")
@@ -32,46 +34,47 @@ class LoginHandler(BaseHandler):
 			self.redirect("/login")
 			return
 
-
-		if not pagebuiness.loginAction(user,passwd):
+		if not pagebuiness.login_action(user, passwd):
 			self.redirect("/login")
 			return
 
 		# 设置用户cookies
-		userinfo = {CommonConstants.USERNAME:user}
-		self.set_secure_cookie(CommonConstants.AUTH,pagebuiness.authAction(userinfo))
+		userinfo = {CommonConstants.USERNAME: user}
+		self.set_secure_cookie(CommonConstants.AUTH, pagebuiness.auth_action(userinfo))
 		#重定向到用户界面
 		self.redirect("/userCenter")
 		return
 
-class UserHandler(BaseHandler):
-	@tornado.web.authenticated
-	def get(self):
-		user = tornado.escape.xhtml_escape(self.current_user)
 
-		self.write("welcome  " + user )
+class UserHandler(BaseHandler):
+	def get(self):
+		username = self.current_user
+
+		self.render("userCenter.html", username=username)
 		return
+
 
 class RegisterHandler(BaseHandler):
 	def get(self):
-		self.render(PathConstants.HTMLS_MODULESUSE + "register.html")
+		self.render("register.html")
 
+	# @gen.coroutine
 	def post(self):
+		res = {}
 		username = self.get_argument(CommonConstants.USERNAME)
 		passwd = self.get_argument(CommonConstants.PASSWD)
-		age = self.get_argument(CommonConstants.AGE)
-
 		#TODO 校验参数
-
-
+		#对象赋值
 		user = Profile.UserPorfile()
 		user.setUser(username)
 		user.setPasswd(SimpleUtil.GetMd5(passwd))
-		user.setAge(age)
-
 
 		pagebuiness.registerAction(user)
+		res['status'] = 'ok'
+		self.write(json.dumps(res))
+		self.flush()
+		self.finish()
+		# raise gen.Return(json.dumps(res))
 		return
-
 
 

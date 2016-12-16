@@ -1,14 +1,16 @@
-#coding=utf-8
+# coding=utf-8
+
 import tornado.web
 import time
 from app.common.util import SimpleUtil
 from app.common.constants import CommonConstants
 
 
-class BaseHandler(tornado.web.RequestHandler):
+# 基础接口 实现登录验证功能
 
+class BaseHandler(tornado.web.RequestHandler):
 	def initialize(self):
-		#TODO 初始化
+		# TODO 初始化
 		pass
 
 	def get_current_user(self):

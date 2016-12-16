@@ -1,21 +1,22 @@
-#coding=utf-8
-#piece 模板
+# coding=utf-8
+# piece 模板
 
 from app.common.template.BaseTemplate import BaseTemplate
 
+
 class PieceTemplate(BaseTemplate):
-	pieceName = ""
+    piece_name = ""
 
-	pieceType = ""
+    piece_type = ""
 
-	def getPieceName(self):
-		return self.pieceName
+    def get_piece_name(self):
+        return self.piece_name
 
-	def setPieceName(self, pieceName):
-		self.pieceName = pieceName
+    def set_piece_name(self, piece_name):
+        self.piece_name = piece_name
 
-	def getPieceType(self):
-		return self.pieceType
+    def get_piece_type(self):
+        return self.piece_type
 
-	def setPieceType(self, pieceType):
-		self.pieceType = pieceType
+    def set_piece_type(self, piece_type):
+        self.piece_type = piece_type

@@ -17,15 +17,16 @@
 </head>
 
 <body>
+    <canvas id="cas" width="1181" height="950"></canvas>
     <div class="container">
         <div class="row clearfix">
         </div>
         <div class="row clearfix">
-            <div class="col-md-4 column">
+            <div class="col-md-12 column">
                 <div id="blueup">我是蓝色</div>
                 <div id="greenup">我是绿色</div>
             </div>
-            <div class="col-md-4 column">
+            <div class="col-md-12 column">
                 <button type="button" class="btn btn-default" onclick="redirect('/register')">去注册咯</button>
                 <button type="button" class="btn btn-default" onclick="redirect('/login')">登录一哈</button>
             </div>
@@ -37,10 +38,25 @@
 
 <style media="screen">
     .container {
+        position: fixed;;
+        z-index: 3;
         padding: 0;
         margin: 0;
+        top: 50%;
+        left: 50%;
+        height: 100px;
+        width: 250px;
+        margin-left: -125px;
+        margin-top: -50px;
+
     }
+
+    #cas {
+
+    }
+
 </style>
+
 <style type="text/css">
     #blueup,
     #greenup {
@@ -82,3 +98,4 @@
         location.href = url;
     }
 </script>
+<script src="../static/js/point.js"></script>
